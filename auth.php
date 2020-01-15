@@ -20,6 +20,7 @@ if (!empty($email) && !empty($password))
             $stmt_check = $pdo->prepare($sql);
             $stmt_check->execute([':email' => $email]);
             $_SESSION['name'] = $user->name;
+            $_SESSION['email'] = $user->email;
             if ($stmt_check->fetchColumn())
             {
                 if ($_POST['remember'] == 1)

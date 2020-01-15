@@ -4,13 +4,21 @@ require_once 'Func/func.php';
 require_once 'db/db.php';
 
 $comment = htmlentities(trim($_POST['text']));
+$email = htmlentities(trim($_SESSION['email']));
+$name = htmlentities(trim($_SESSION['name']));
 
-if (!empty($_POST['name']) && !empty($comment))
+if (!empty($email) && !empty($comment) && !empty($name))
 {
-    $stmt = $pdo->prepare('INSERT INTO comments(name, text) VALUES (:name, :text)');
-    $params = [':name' =>  trim($_POST['name']), ':text' => $comment];
 
-    //$stmt->execute($params);
+    $stid = $pdo->prepare('SELECT `id` FROM users WHERE email = :email');
+    $param = [':email' => $email];
+    $stid->execute($param);
+    $rez = $stid->fetch(PDO::FETCH_ASSOC);
+    $users_id = $rez['id'];
+
+    $stmt = $pdo->prepare('INSERT INTO comments(name, text, users_id) VALUES (:name, :text, :users_id)');
+    $params = [':name' =>  $name, ':text' => $comment, 'users_id' => $users_id];
+
     if ($stmt->execute($params))
     {
         $_SESSION['flash_ok'] = "Комментарий успешно добавлен";
@@ -18,7 +26,6 @@ if (!empty($_POST['name']) && !empty($comment))
         $_SESSION['flash_error'] = "Упс, что-то пошло не так";
     }
     
-    //echo "Данные успешно отправлены в базу <br>";
     header('Location:index.php');
 } else {
     $_SESSION['empty_form'] = "Чтобы оставлять комментарии, необходимо авторизоваться ";;
