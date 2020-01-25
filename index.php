@@ -95,7 +95,12 @@ if (empty($_SESSION['email']) && !empty($_COOKIE['email']) && !empty($_COOKIE['p
                             <?php echo $_SESSION['login_ok']; ?>
 
                             </div>
-                            <?php unset($_SESSION['login_ok']); } ?>
+                            <?php unset($_SESSION['login_ok']); } 
+                            else if (isset($_SESSION['authok'])) { ?>
+                            <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['authok']; ?>
+                            </div>
+                            <?php unset($_SESSION['authok']); } ?>
                                 
                                 <!--<div class="media">
                                   <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
@@ -112,7 +117,14 @@ if (empty($_SESSION['email']) && !empty($_COOKIE['email']) && !empty($_COOKIE['p
                                foreach ($comments as $com):?>
                                <div class="media">
                                
-                                  <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
+                                  <!--<img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">-->
+                                  <?php if (empty($com['img'])) 
+                                  {
+                                      echo '<img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">';
+                                  } else {
+                                    echo '<img src="'. 'img/' . $com['img']. '" class="mr-3" alt="..." width="64" height="64">';
+                                  } ?>
+                                  
                                   <div class="media-body">
                                     <h5 class="mt-0"><?php echo $com['name']; ?></h5> 
                                     <span><small><?php echo date("d.m.y",strtotime($com['time'])); ?></small></span>

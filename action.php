@@ -3,12 +3,11 @@ session_start();
 require_once 'Func/func.php';
 require_once 'db/db.php';
 
-$comment = htmlentities(trim($_POST['text']));
-$email = htmlentities(trim($_SESSION['email']));
-$name = htmlentities(trim($_SESSION['name']));
-
-if (!empty($email) && !empty($comment) && !empty($name))
+if (!empty($_SESSION['email']) && !empty($_POST['text']) && !empty($_SESSION['name']))
 {
+    $comment = htmlentities(trim($_POST['text']));
+    $email = htmlentities(trim($_SESSION['email']));
+    $name = htmlentities(trim($_SESSION['name']));
 
     $stid = $pdo->prepare('SELECT `id` FROM users WHERE email = :email');
     $param = [':email' => $email];

@@ -1,3 +1,9 @@
+<?php
+    require_once "db/db.php";
+    require_once "Func/func.php";
+    //require_once "change_user.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,25 +31,68 @@
                         <div class="card-header"><h3>Профиль пользователя</h3></div>
 
                         <div class="card-body">
-                          <div class="alert alert-success" role="alert">
-                            Профиль успешно обновлен
-                          </div>
 
-                            <form action="" method="post" enctype="multipart/form-data">
+                        <?php if (isset($_SESSION['okchangprof'])) {?>
+                          <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['okchangprof']; ?>
+                          </div>
+                            <?php unset($_SESSION['okchangprof']); } 
+                          else if (isset($_SESSION['error_chang_prof'])) {?>
+                          <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['error_chang_prof']; ?>
+                          </div>
+                            <?php unset($_SESSION['error_chang_prof']);} 
+                            else if (isset($_SESSION['notchanprof'])) {?>
+                            <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['notchanprof']; ?>
+                          </div>
+                          <?php unset($_SESSION['notchanprof']); }
+                          else if (isset($_SESSION['emptyfrom'])) {?>
+                            <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['emptyfrom']; ?>
+                          </div>
+                          <?php unset($_SESSION['emptyfrom']); }?>
+
+                          <!--<div class="alert alert-success" role="alert">
+                             Профиль успешно обновлен 
+                          </div>-->
+                            <div class="card-body"> 
+                                    <?php if (isset($_SESSION['addimage'])) {?>
+                                <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['addimage']; ?>
+                                </div>
+                                <?php unset($_SESSION['addimage']); }
+                                else if (isset($_SESSION['not_image'])) { ?>
+                                    <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['not_image']; ?>
+                                </div>
+                                <?php unset ($_SESSION['not_image']); } 
+                                else if (isset($_SESSION['updimg'])) { ?>
+                                    <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['updimg']; ?>
+                                </div>
+                                <?php unset ($_SESSION['updimg']); }
+                                else if (isset($_SESSION['notupdateimg'])) { ?>
+                                    <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['notupdateimg']; ?>
+                                </div>
+                                <?php unset ($_SESSION['notupdateimg']); } ?>
+
+                            <form action="change_user.php" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Name</label>
-                                            <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="John">
+                                            <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="<?php echo $_SESSION['name'] ?>" >
                                            
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Email</label>
-                                            <input type="email" class="form-control is-invalid" name="email" id="exampleFormControlInput1" value="john@example.com">
-                                            <span class="text text-danger">
+                                            <input type="email" class="form-control is-invalid" name="email" id="exampleFormControlInput1" value="<?php echo $_SESSION['email'] ?>">
+                                            <!--<span class="text text-danger">
                                                 Ошибка валидации
-                                            </span>
+                                            </span>-->
                                         </div>
 
                                         <div class="form-group">
@@ -52,14 +101,23 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <img src="img/no-user.jpg" alt="" class="img-fluid">
+                                    
+                                        <?php if (empty($_SESSION['image']))
+                                        {
+                                            echo '<img src="img/no-user.jpg" alt="" class="img-fluid">';
+                                        } else
+                                        {
+                                            echo '<img src="'. 'img/' . $_SESSION['image']. '" alt="" class="img-fluid">';
+                                        }?>
+                                        <!--<img src="img/no-user.jpg" alt="" class="img-fluid">-->
                                     </div>
 
                                     <div class="col-md-12">
-                                        <button class="btn btn-warning">Edit profile</button>
+                                        <button class="btn btn-warning">Редактировать</button>
                                     </div>
                                 </div>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>

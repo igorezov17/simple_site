@@ -1,3 +1,10 @@
+<?php
+require_once "Func/func.php";
+require_once "db/db.php";
+require_once "change_user";
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

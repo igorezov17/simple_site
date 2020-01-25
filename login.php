@@ -57,17 +57,17 @@ require_once 'Func/func.php';
                             <div class="card-header">Login</div>
 
                             <div class="card-body">
-                                <?php if ($_SESSION['empty_auth_form']) { ?>
+                                <?php if (isset($_SESSION['empty_auth_form'])) { ?>
                                     <div class="alert alert-success" role="alert">
                                         <?php echo $_SESSION['empty_auth_form'] ?>
                                     </div>
                                 <?php unset($_SESSION['empty_auth_form']); }
-                                else if ($_SESSION['error_auth_email']) { ?>
+                                else if ( isset($_SESSION['errpass'])) { ?>
                                     <div class="alert alert-success" role="alert">
-                                        <?php echo $_SESSION['error_auth_email']; ?>
+                                        <?php echo $_SESSION['errpass']; ?>
                                     </div>
-                                <?php unset($_SESSION['error_auth_email']); } 
-                                else if ($_SESSION['not_user']) { ?>
+                                <?php unset($_SESSION['errpass']); } 
+                                else if (isset($_SESSION['not_user'])) { ?>
                                     <div class="alert alert-success" role="alert">
                                         <?php echo $_SESSION['not_user']; ?>
                                     </div>

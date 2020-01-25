@@ -13,6 +13,7 @@ require_once 'test_db.php';
     <title>Document</title>
 </head>
 <body>
+<h1>Заголовок</h1>
     <!--<form method="GET" action="">
         <input type="text" name="text" placeholder="Введите текст"><br>
         <input type="submit" name="кнопка">
@@ -61,7 +62,49 @@ try {
 }
 
 
-$email = htmlentities(trim($_POST['email']));
+class Suv
+{
+    public $color = "grey";
+    static public $power = 220;
+
+    public function setColor($newColor)
+    {
+        $this->color = $newColor;
+        return ($this->color);
+    }
+}
+
+class Crossover extends Suv
+{
+    public $fuel = 34;
+
+    public function setColor()
+    {
+        return($this->color);
+    }
+
+    public function setFuel()
+    {
+        return($this->fuel);
+    }
+}
+
+$toureg = new Suv;
+debug($toureg->setColor("brown"));
+$tiguan = new Crossover;
+debug($tiguan->setColor());
+debug($tiguan->setFuel());
+
+$test = 'image1.jpg';
+$test = uniqid($test);
+
+
+$nameimg = "img/image1.jpg5e2af92cc3796";
+debug($nameimg);
+debug($server_filepath);
+
+
+
 
 
 

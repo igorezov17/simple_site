@@ -34,3 +34,4 @@ if (isset($_COOKIE['page_visit']))
     setcookie('page_visit', 1, time()+5);
     $_COOKIE['page_visit'] = 1;
 }
+

@@ -1,4 +1,4 @@
-<div class="card">
+                            <div class="card">
                             <div class="card-header"><h3>Оставить комментарий</h3></div> 
                             <div class="card-body">
                                 <form action="action.php" method="post">
