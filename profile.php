@@ -127,29 +127,50 @@
                         <div class="card-header"><h3>Безопасность</h3></div>
 
                         <div class="card-body">
+                            <?php if (isset($_SESSION['eptyform'])) {?>
                             <div class="alert alert-success" role="alert">
-                                Пароль успешно обновлен
+                                <?php echo $_SESSION['eptyform']; ?>
                             </div>
-
-                            <form action="/profile/password" method="post">
+                                <?php unset($_SESSION['eptyform']); }
+                                else if (isset($_SESSION['notcopypass'])) {?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $_SESSION['notcopypass']; ?>
+                            </div>
+                                <?php unset($_SESSION['notcopypass']); }
+                                else if (isset($_SESSION['oldpasnottrue'])) {?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $_SESSION['oldpasnottrue']; ?>
+                            </div>
+                                <?php unset($_SESSION['oldpasnottrue']); }
+                                else if(isset($_SESSION['paseror'])) { ?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $_SESSION['paseror']; ?>
+                            </div>
+                                <?php unset($_SESSION['paseror']); }
+                                else if(isset($_SESSION["psupdok"])) {?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo $_SESSION["psupdok"]; ?>
+                            </div>
+                                <?php unset($_SESSION["psupdok"]); } ?>
+                            <form action="change_user_pass.php" method="post">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Current password</label>
+                                            <label for="exampleFormControlInput1">Текущий пароль</label>
                                             <input type="password" name="current" class="form-control" id="exampleFormControlInput1">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">New password</label>
+                                            <label for="exampleFormControlInput1">Новый пароль</label>
                                             <input type="password" name="password" class="form-control" id="exampleFormControlInput1">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Password confirmation</label>
+                                            <label for="exampleFormControlInput1">Подтверждение пароля</label>
                                             <input type="password" name="password_confirmation" class="form-control" id="exampleFormControlInput1">
                                         </div>
 
-                                        <button class="btn btn-success">Submit</button>
+                                        <button class="btn btn-success">Отправить</button>
                                     </div>
                                 </div>
                             </form>

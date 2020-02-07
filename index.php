@@ -114,7 +114,9 @@ if (empty($_SESSION['email']) && !empty($_COOKIE['email']) && !empty($_COOKIE['p
                                 </div>-->
 
                                <?php 
-                               foreach ($comments as $com):?>
+                               foreach ($comments as $com):
+                               if ($com['com_ban'] == 0) {
+                               ?>
                                <div class="media">
                                
                                   <!--<img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">-->
@@ -134,7 +136,7 @@ if (empty($_SESSION['email']) && !empty($_COOKIE['email']) && !empty($_COOKIE['p
                                   </div>
                                 </div>
 
-                               <?php endforeach; ?>
+                               <?php } endforeach; ?>
                                 </div>
                                 </div>
                                 <div class="col-md-12" style="margin-top: 20px;">

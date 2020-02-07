@@ -1,7 +1,6 @@
 <?php
 
-require_once 'test_db.php';
-
+//require_once 'test_db.php';
 $driver = 'mysql';
 $host = '127.0.0.1';
 $dbname = 'blog';

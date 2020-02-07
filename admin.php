@@ -1,9 +1,7 @@
 <?php
 require_once "Func/func.php";
 require_once "db/db.php";
-require_once "change_user";
-
-
+require_once "read.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +42,9 @@ require_once "change_user";
                                 <a class="nav-link" href="login.php">Login</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="Profile.php">Profile</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="register.php">Register</a>
                             </li>
                     </ul>
@@ -71,21 +72,37 @@ require_once "change_user";
                                     </thead>
 
                                     <tbody>
+                                    <?php foreach ($comments as $com)
+                                            { ?>
                                         <tr>
                                             <td>
-                                                <img src="img/no-user.jpg" alt="" class="img-fluid" width="64" height="64">
+                                                <?php if (empty($com['img']))
+                                                {
+                                                    echo '<img src="img/no-user.jpg" alt="" class="img-fluid" width="64" height="64">';
+                                                } else {
+                                                    echo '<img src="'. 'img/' . $com['img']. '" alt="" class="img-fluid" width="64" height="64">';
+                                                }?>
+                                                <!--<img src="img/no-user.jpg" alt="" class="img-fluid" width="64" height="64">-->
                                             </td>
-                                            <td>John</td>
-                                            <td>12/08/2045</td>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta aut quam cumque libero reiciendis, dolor.</td>
+                                            <td><?php echo $com['name']; ?></td>
+                                            <td><?php echo date("d.m.y",strtotime($com['release'])); ?></td>
+                                            <td> <?php echo $com['text']; ?></td>
                                             <td>
-                                                    <a href="" class="btn btn-success">Разрешить</a>
-
-                                                    <a href="" class="btn btn-warning">Запретить</a>
-
-                                                <a href="" onclick="return confirm('are you sure?')" class="btn btn-danger">Удалить</a>
+                                                    <?php if ($com['com_ban'] == 1) {?>
+                                                    <form action="admin_headler.php" method="GET">
+                                                        <button type="submite" name="show" value="<?php echo $com['id'] ?>" class="btn btn-success">Разрешить</></button>
+                                                    </form>
+                                                    <?php } else {?>
+                                                    <form action="admin_headler.php" method="GET">
+                                                        <button type="submite" value="<?php echo $com['id']; ?>" name="block" class="btn btn-warning">Запретить</button>
+                                                    </form>
+                                                    <?php } ?>
+                                                    <form action="admin_headler.php" method="GET">
+                                                        <button onclick="return confirm('are you sure?')" type="submite" value="<?php echo $com['id']?>" name="del" class="btn btn-danger">Удалить</button>
+                                                    </form>
                                             </td>
                                         </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
